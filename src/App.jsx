@@ -31,14 +31,17 @@ function App() {
   useEffect(() => {
 
     if (data && data?.duration) {
-      let minute = 0
-      let sec = 40;
+      let minute = data?.duration-1
+      let sec = 60;
       intervalId.current = setInterval(() => {
         if(sec == 0 && minute > 0){
           minute--;
           sec = 60;
         }
-        if(sec == 0 && minute == 0) clearTimer(); 
+        if(sec == 0 && minute == 0){ 
+          // submitAnswer(); // NOTE:
+          clearTimer(); 
+        }
         else sec = sec-1; 
 
         if(sec <= 30 && minute == 0) setTimeEnd(true)
@@ -84,7 +87,10 @@ function App() {
 
     Swal.fire({
       title: 'Result',
-      text: `Total ${result}`
+      html: `
+        <h1>Total Score: <strong>${result}</strong></h1>
+        <p>Time Saved: ${timeLeft}*</p>
+      `
     })
   }
 
