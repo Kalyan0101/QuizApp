@@ -3,6 +3,7 @@ import QuizHook from './Hook/QuizHook'
 import Question from './components/Question';
 import Swal from 'sweetalert2'
 
+
 function App() {
 
   const data = QuizHook()
@@ -10,10 +11,12 @@ function App() {
   const [selectedId, setSelectedId] = useState(0);
   const [question, setQuestion] = useState({});
   const [flag, setFlag] = useState(false);
-  const [timeLeft, setTimeLeft] = useState("0 : 00");
+  const [timeLeft, setTimeLeft] = useState("00 : 00");
   const [answerHistory, setAnswerHistory] = useState();
-  const intervalId = useRef(null);
   const [timeEnd, setTimeEnd] = useState(false);
+  const intervalId = useRef(null);
+  const minuteRef = useRef(0);
+  const secRef = useRef(0);
 
 
   // generate flag and fill question
@@ -29,27 +32,32 @@ function App() {
 
   // timer
   useEffect(() => {
+    if (data && data.duration) {
+      minuteRef.current = data.duration - 1; 
+      secRef.current = 60; 
 
-    if (data && data?.duration) {
-      let minute = data?.duration-1
-      let sec = 60;
       intervalId.current = setInterval(() => {
-        if(sec == 0 && minute > 0){
-          minute--;
-          sec = 60;
+        if (secRef.current === 0 && minuteRef.current > 0) {
+          minuteRef.current--;
+          secRef.current = 60;
         }
-        if(sec == 0 && minute == 0){ 
-          // submitAnswer(); // NOTE:
-          clearTimer(); 
-        }
-        else sec = sec-1; 
 
-        if(sec <= 30 && minute == 0) setTimeEnd(true)
-        
-        setTimeLeft(`${minute} : ${sec}`);
+        if (secRef.current === 0 && minuteRef.current === 0) {
+          clearInterval(intervalId.current);
+          submitAnswer();
+          return;
+        }
+
+        secRef.current--;
+
+        if (secRef.current <= 30 && minuteRef.current === 0) setTimeEnd(true);
+
+        setTimeLeft(`${minuteRef.current} : ${secRef.current}`);
       }, 1000);
-    }    
-  }, [data])
+    }
+
+    return () => clearInterval(intervalId.current);
+  }, [data]);
 
   const clearTimer = () => {
     if(intervalId.current)
@@ -88,7 +96,11 @@ function App() {
     Swal.fire({
       title: 'Result',
       html: `
-        <h1>Total Score: <strong>${result}</strong></h1>
+        <h1 style="font-size: 2rem">Total Score: <strong>${result}</strong></h1>
+        <div style="display: flex; justify-content: center; gap: 10px; margin: 15px 0 15px 0">
+          <span style="color: green">Correct: ${right}*</span>
+          <span style="color: red">Wrong: ${wrong}*</span>
+        </div>
         <p>Time Saved: ${timeLeft}*</p>
       `
     })
