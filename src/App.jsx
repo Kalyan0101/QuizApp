@@ -103,7 +103,6 @@ function App() {
           <h1 className="mt-10 ml-5 text-xl font-bold">Questions</h1>
           <ul className="overflow-y-scroll">
             {data.questions?.map((ques, index) => (
-
               <li
                 key={ques.id}
                 className={`flex flex-row cursor-pointer space-x-2 py-4 px-10 text-gray-300 hover:bg-slate-600 ${selectedId === index ? "bg-slate-600 font-semibold" : ""} `}
@@ -115,7 +114,7 @@ function App() {
             ))}
           </ul>
         </div>
-        <div className="px-10 w-4/5 flex flex-col justify-start items-start">
+        <div className="px-10 w-4/5 flex flex-col justify-start items-start h-screen overflow-hidden">
           <div className="w-full pt-10 mb-10 flex flex-col gap-6">
             <h1 className="w-full text-2xl ">Today's Topic: <strong><em>{data?.topic}</em></strong></h1>
             {/* timer and marks */}

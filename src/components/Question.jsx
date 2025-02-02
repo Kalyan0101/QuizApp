@@ -32,7 +32,7 @@ function Question({ id, QnA, onClick, flag, answerHistory, setAnswerHistory, sub
     // Store answer in parent state
     setAnswerHistory((prev) => ({
       ...prev,
-      [QnA?.id]: option, 
+      [QnA?.id]: option,
     }));
   };
 
@@ -40,7 +40,7 @@ function Question({ id, QnA, onClick, flag, answerHistory, setAnswerHistory, sub
     if (flag) {
       console.log("submit");
       submitAnswer();
-    }else{
+    } else {
       resetAll();
       onClick();
     }
@@ -48,7 +48,7 @@ function Question({ id, QnA, onClick, flag, answerHistory, setAnswerHistory, sub
 
 
   return (
-    <div className="w-full flex flex-col justify-start">
+    <div className="w-full flex flex-col justify-start ">
       <h1 className="text-xl">
         <strong>Q{id + 1}.</strong> {ques?.description}
       </h1>
@@ -68,6 +68,18 @@ function Question({ id, QnA, onClick, flag, answerHistory, setAnswerHistory, sub
             </li>
           ))}
       </div>
+
+      {
+        isClicked &&
+
+        <ul className="mt-10 mr-25 border-2 rounded-xl p-4 text-justify overflow-y-scroll h-[35%]">
+          <li className="">
+            
+          </li>
+        </ul>
+
+      }
+
 
       <button
         onClick={buttonHandle}
