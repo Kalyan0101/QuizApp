@@ -13,9 +13,6 @@ This project is a web-based quiz application designed to provide an engaging qui
 - **Framework**: React-vite
 - **Styling**: [Tailwind CSS, Styled Components, etc.]
 
-## 🚀 Live Demo
-- [Provide a deployed link if hosted on Vercel, Netlify, etc.]
-
 ## 📸 Screenshots & Video Walkthrough
 <p align="center">
    <img src="./public/img/1.png" alt="InsightsSnapshot" />
@@ -59,7 +56,3 @@ This project is a web-based quiz application designed to provide an engaging qui
 ## 👤 Author & Contact
 - **Developed by**: [Kalyan]
 - **Contact**: [GitHub Profile](https://github.com/Kalyan0101)
-
----
-Thank you for reviewing my submission! Looking forward to your feedback. 🚀
-
